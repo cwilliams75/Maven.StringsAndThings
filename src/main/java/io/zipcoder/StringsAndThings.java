@@ -1,6 +1,9 @@
 package io.zipcoder;
 
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * @author tariq
  */
@@ -14,8 +17,25 @@ public class StringsAndThings {
      *           countYZ("day fez"); // Should return 2
      *           countYZ("day fyyyz"); // Should return 2
      */
+
     public Integer countYZ(String input){
-        return null;
+        String[] arr = input.split(" ");
+
+        int count = 0;
+        for (String word : arr) {
+            if (word.charAt(word.length() - 1) == 'y' || word.charAt(word.length() - 1) == 'z')
+                count++;
+        }
+        return count;
+
+
+//        Matcher m = Pattern.compile("[yz]\\b").matcher(input);
+//        int count = 0;
+//        while (m.find())
+//            count++;
+//        return count;
+
+
     }
 
     /**
@@ -28,7 +48,7 @@ public class StringsAndThings {
      *           removeString("Hello there", "x") // Should return "Hello there"
      */
     public String removeString(String base, String remove){
-        return null;
+        return base.replaceAll(remove, "");
     }
 
     /**
@@ -40,7 +60,23 @@ public class StringsAndThings {
      *           containsEqualNumberOfIsAndNot("noisxxnotyynotxisi") // Should return true
      */
     public Boolean containsEqualNumberOfIsAndNot(String input){
-        return null;
+        //convert every character to lower case
+        input = input.toLowerCase();
+
+        input = input.replaceAll("x", "");
+        input = input.replaceAll("y", "");
+        input = input.replaceAll("is", "x");
+        input = input.replaceAll("not", "y");
+        int x = 0;
+        int y = 0;
+        for (int i = 0; i < input.length(); i++) {
+            if(input.charAt(i) == 'x'){
+                x++;
+            } else if (input.charAt(i) == 'y'){
+                y++;
+            }
+        }
+        return x == y;
     }
 
     /**
@@ -51,7 +87,17 @@ public class StringsAndThings {
      *           gHappy("xxggyygxx") // Should return  false
      */
     public Boolean gIsHappy(String input){
-        return null;
+        //split string into array of characters
+        char[] arr = input.toCharArray();
+        //loop through, starting at index 1 to avoid out of bounds exception
+        for (int i = 1; i < arr.length - 2; i++) {
+            if(arr[i] == 'g') {
+                if (!(arr[i - 1] == 'g' || arr[i + 1] == 'g')) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
 
@@ -63,6 +109,16 @@ public class StringsAndThings {
      *            countTriple("a") // Should return 0
      */
     public Integer countTriple(String input){
-        return null;
+        int count = 0;
+        for(int i = 0; i <= input.length()-3; i++){
+            if(input.charAt(i) == input.charAt(i+1) && input.charAt(i) == input.charAt(i+2)){
+                count++;
+            }
+
+
+        }
+
+
+        return count;
     }
 }
